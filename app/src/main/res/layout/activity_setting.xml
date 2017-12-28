@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/colorPrimary"
+    tools:context="com.ram.letschat.SettingActivity"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="170sp"
+        android:layout_height="170sp"
+        android:id="@+id/ImageView_image"
+        android:src="@drawable/default_user_image"/>
+
+   <!-- <android.support.v4.widget.CircleImageView
+        android:layout_width="170sp"
+        android:layout_height="170sp"
+         />-->
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User name"
+        android:textStyle="bold"
+        android:layout_margin="10sp"
+        android:textSize="20sp"
+        android:textColor="#fff"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hi_there_i_m_using_let_s_chat"
+        android:textSize="18sp"
+        android:id="@+id/user_status"
+        android:textColor="#fff"/>
+    <Button
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Change Image"
+        android:id="@+id/change_image"
+        android:paddingLeft="15sp"
+        android:layout_marginTop="100sp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <Button
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Change Status"
+        android:id="@+id/change_status"
+
+        />
+
+</LinearLayout>

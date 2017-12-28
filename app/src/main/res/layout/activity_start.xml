@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:gravity="center"
+
+    tools:context="com.ram.letschat.StartActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="15dp"
+        android:text="Welcome to Let's Chat"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/community"  />
+
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/registerBtn"
+        android:layout_alignStart="@+id/registerBtn"
+
+
+        android:text="@string/already_have_account"
+
+        android:textColor="#1e22ea"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_btn"
+        android:text="@string/need_an_account"
+
+        android:textColor="#252323"
+
+
+        android:textSize="15sp" />
+
+</LinearLayout>
