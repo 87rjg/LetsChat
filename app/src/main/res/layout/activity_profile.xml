@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ram.letschat.ProfileActivity"
+    android:background="@color/colorPrimary">
+
+
+    <ImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="400sp"
+
+        android:layout_above="@+id/display_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/default_user_image" />
+
+    <TextView
+        android:id="@+id/display_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Display Name"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/user_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/display_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:text="current status" />
+
+    <Button
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_status"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:id="@+id/request_button"
+        android:text="Send Friend Request"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/request_button"
+        android:layout_below="@+id/request_button"
+        android:id="@+id/decline_button"
+
+        android:text="Decline Friend Request"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>

@@ -11,8 +11,8 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="170sp"
-        android:layout_height="170sp"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
         android:id="@+id/ImageView_image"
         android:src="@drawable/default_user_image"/>
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Change Status"
         android:id="@+id/change_status"
-
+        android:backgroundTint="@color/colorAccent"
         />
 
 </LinearLayout>

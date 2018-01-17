@@ -1,5 +1,7 @@
 package com.ram.letschat;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllUsersActivity extends AppCompatActivity {
 
@@ -41,9 +46,8 @@ public class AllUsersActivity extends AppCompatActivity {
         mListView.setLayoutManager(new LinearLayoutManager(this));
 
         mUserdatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        Query personsQuery = mUserdatabase.orderByKey();
-
-        //Firebase UI adapter to populate RecyclerView
+        Query personsQuery = mUserdatabase.orderByChild("name");
+                //Firebase UI adapter to populate RecyclerView
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Users>().setQuery(personsQuery, Users.class).build();
 
@@ -65,6 +69,21 @@ public class AllUsersActivity extends AppCompatActivity {
 
                 holder.setName(model.getName());
                 holder.setSatus(model.getStatus());
+                holder.setUserImage(model.getThumb_image(),getApplicationContext());
+
+                final String user_id = getRef(position).getKey();
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent profile_intent = new Intent(AllUsersActivity.this,ProfileActivity.class);
+                        profile_intent.putExtra("user_id",user_id);
+
+                        startActivity(profile_intent);
+
+                    }
+                });
             }
 
         };
@@ -106,8 +125,11 @@ public class AllUsersActivity extends AppCompatActivity {
             TextView userStatus = (TextView) mView.findViewById(R.id.single_user_status);
             userStatus.setText(status);
         }
-        public void setImage(String image)
+        public void setUserImage(String thumb_image, Context context)
         {
+
+            CircleImageView userimageView = (CircleImageView) mView.findViewById(R.id.single_user_image);
+            Picasso.with(context).load(thumb_image).placeholder(R.drawable.user1).into(userimageView);
 
         }
     }

@@ -1,10 +1,12 @@
 package com.ram.letschat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail,mPaaword;
     private Button mLoginBtn;
     private FirebaseAuth mAuth;
+    private ProgressDialog mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         mPaaword = (EditText) findViewById(R.id.log_password);
         mLoginBtn =(Button) findViewById(R.id.login_btn);
 
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Please Wait...");
+        mProgress.setCanceledOnTouchOutside(false);
+
         mAuth = FirebaseAuth.getInstance();
 
        mLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +53,18 @@ public class LoginActivity extends AppCompatActivity {
                 String email = mEmail.getText().toString().trim();
                 String pass = mPaaword.getText().toString().trim();
 
-                login(email,pass);
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass))
+                {
+
+                    login(email,pass);
+                    mProgress.show();
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this,"Email and Password should not be empty",Toast.LENGTH_SHORT).show();
+                    mProgress.hide();
+                }
+
             }
         });
 
@@ -60,12 +78,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(task.isSuccessful())
                 {
+                    mProgress.dismiss();
                     Intent intent = (new Intent(LoginActivity.this,MainActivity.class));
                     intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
+
                 }
                 else{
+                    mProgress.hide();
                     Toast.makeText(LoginActivity.this,"Login failed..Check your Details",Toast.LENGTH_SHORT).show();
                 }
 

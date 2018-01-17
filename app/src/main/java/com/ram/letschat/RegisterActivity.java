@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
@@ -26,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mEmail;
-    private EditText mPassword;
+    private EditText mPassword,mConfirmPass;
     private Button mRegisterButton;
 
     private Toolbar mToolbar;
@@ -43,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         mName = (EditText) findViewById(R.id.reg_name);
         mEmail = (EditText) findViewById(R.id.reg_email);
         mPassword = (EditText) findViewById( R.id.reg_password);
+        mConfirmPass = (EditText) findViewById(R.id.confirm_password);
 
         mRegisterButton = (Button) findViewById(R.id.registerBtn);
 
@@ -62,12 +65,29 @@ public class RegisterActivity extends AppCompatActivity {
                 String name = mName.getText().toString().trim();
                 String email = mEmail.getText().toString().trim();
                 String pass = mPassword.getText().toString().trim();
+                String confirm_pass = mConfirmPass.getText().toString().trim();
 
-                progressDialog.setTitle("Registering user");
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
-                register_User(name,email,pass);
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(confirm_pass))
+                {
+                    progressDialog.setTitle("Registering user");
+                    progressDialog.setMessage("Please Wait...");
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                    if(confirm_pass.equals(pass))
+                    {
+                        register_User(name,email,pass);
+                    }
+                    else{
+                        Toast.makeText(RegisterActivity.this,"Password didn't match",Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this,"All fields are require",Toast.LENGTH_SHORT).show();
+                    progressDialog.hide();
+                }
+
             }
         });
     }
@@ -83,14 +103,17 @@ public class RegisterActivity extends AppCompatActivity {
                 {
 
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+
                     String uid = current_user.getUid();
                     mReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
+                    String device_token = FirebaseInstanceId.getInstance().getToken();
                     HashMap<String,String> userMap = new HashMap<>();
                     userMap.put("name",name);
                     userMap.put("status","Hi there I'm using Let's Chat");
                     userMap.put("image","default");
                     userMap.put("thumb_image","default");
+                    userMap.put("device_token",device_token);
                     mReference.setValue(userMap);
 
                     progressDialog.dismiss();

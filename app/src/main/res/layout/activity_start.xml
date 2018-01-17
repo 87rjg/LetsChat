@@ -40,7 +40,8 @@
 
         android:text="@string/already_have_account"
 
-        android:textColor="#1e22ea"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="#fff"
         android:textSize="15sp" />
 
     <Button
@@ -50,8 +51,9 @@
         android:layout_alignStart="@+id/login_btn"
         android:text="@string/need_an_account"
 
-        android:textColor="#252323"
+        android:textColor="#fff"
 
+        android:backgroundTint="@color/colorAccent"
 
         android:textSize="15sp" />
 

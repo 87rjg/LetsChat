@@ -15,22 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "24399713762-akdu0a56k8ku08lhpo70m36ffv8iis09.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ram.letschat",
-            "certificate_hash": "ad76a40fbee70d4a472ef5791bd10d39f913360f"
-          }
-        },
-        {
-          "client_id": "24399713762-qoql0685jl2rm54rfqa00sved0vt660s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ram.letschat",
-            "certificate_hash": "16834bd690d90359ab1f9ecf555a757059799d48"
-          }
-        },
-        {
           "client_id": "24399713762-tcdql114df04jmga6m5qvhb5kqc4c0me.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
