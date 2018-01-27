@@ -11,11 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -67,23 +70,30 @@ public class AllUsersActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull Users model) {
 
-                holder.setName(model.getName());
-                holder.setSatus(model.getStatus());
-                holder.setUserImage(model.getThumb_image(),getApplicationContext());
-
                 final String user_id = getRef(position).getKey();
+                String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+               // if(!user_id.equals(user)){
+                    holder.setName(model.getName());
+                    holder.setSatus(model.getStatus());
+                    holder.setUserImage(model.getThumb_image(),getApplicationContext());
+                    holder.setOnlineStatus(model.isOnline());
 
-                holder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        Intent profile_intent = new Intent(AllUsersActivity.this,ProfileActivity.class);
-                        profile_intent.putExtra("user_id",user_id);
 
-                        startActivity(profile_intent);
 
-                    }
-                });
+                    holder.mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            Intent profile_intent = new Intent(AllUsersActivity.this,ProfileActivity.class);
+                            profile_intent.putExtra("user_id",user_id);
+
+                            startActivity(profile_intent);
+
+                        }
+                    });
+               // }
+
             }
 
         };
@@ -97,6 +107,7 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onStart();
 
         firebaseRecyclerAdapter.startListening();
+
     }
 
     @Override
@@ -104,6 +115,7 @@ public class AllUsersActivity extends AppCompatActivity {
         super.onStop();
 
         firebaseRecyclerAdapter.stopListening();
+
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder{
@@ -131,6 +143,17 @@ public class AllUsersActivity extends AppCompatActivity {
             CircleImageView userimageView = (CircleImageView) mView.findViewById(R.id.single_user_image);
             Picasso.with(context).load(thumb_image).placeholder(R.drawable.user1).into(userimageView);
 
+        }
+
+        public void setOnlineStatus(boolean online) {
+            ImageView onlineSatus = (ImageView) mView.findViewById(R.id.sinlge_online_icon);
+            if(online == true){
+                onlineSatus.setVisibility(View.VISIBLE);
+            }
+
+            else{
+                onlineSatus.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

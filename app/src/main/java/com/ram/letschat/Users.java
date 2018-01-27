@@ -9,18 +9,26 @@ public class Users {
     public String image;
     public String status;
     public String thumb_image;
+    public boolean online;
 
     public Users(){
 
     }
 
+    public boolean isOnline() {
+        return online;
+    }
 
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
 
-    public Users(String name, String image, String status, String thumb_image) {
+    public Users(String name, String image, String status, String thumb_image, boolean online) {
         this.name = name;
         this.image = image;
         this.status = status;
         this.thumb_image = thumb_image;
+        this.online = online;
 
 
     }

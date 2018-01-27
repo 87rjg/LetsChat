@@ -45,6 +45,8 @@ public class SettingActivity extends AppCompatActivity {
     private StorageReference mStorageReference;
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
     //private FirebaseUser mUsers;
 
     private CircleImageView mImageView;
@@ -73,6 +75,7 @@ public class SettingActivity extends AppCompatActivity {
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_user);
         mUserDatabase.keepSynced(true);
+
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -230,6 +233,18 @@ public class SettingActivity extends AppCompatActivity {
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser != null){
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            ref.child("online").setValue("true");
         }
     }
 }

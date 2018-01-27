@@ -23,7 +23,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:inputType="textEmailAddress"
+
         />
 
     <EditText
@@ -35,10 +35,10 @@
         android:layout_marginEnd="20sp"
         android:layout_marginTop="25sp"
         android:background="@drawable/input_background"
-        android:padding="12sp"
+        android:padding="10sp"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textPersonName" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/log_password"
@@ -47,10 +47,10 @@
         android:layout_alignStart="@+id/log1_email"
         android:layout_below="@+id/log1_email"
         android:layout_marginEnd="20sp"
-        android:layout_marginTop="12sp"
+        android:layout_marginTop="8sp"
         android:ems="10"
         android:background="@drawable/input_background"
-        android:padding="12sp"
+        android:padding="10sp"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
@@ -67,10 +67,25 @@
         android:textSize="15sp"
 
         android:background="@drawable/btn_backgroud"
-        android:padding="12dp"
+        android:padding="10dp"
 
 
         />
+
+    <TextView
+        android:id="@+id/forgot_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_btn"
+        android:layout_below="@+id/login_btn"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="37dp"
+        android:text="Forgot Password?"
+        android:gravity="center"
+        android:textColor="#f20808"
+        android:textSize="15dp" />
+
+
 
 
 </RelativeLayout>

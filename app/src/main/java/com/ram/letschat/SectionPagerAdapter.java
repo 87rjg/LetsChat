@@ -26,8 +26,8 @@ class SectionPagerAdapter extends FragmentPagerAdapter {
                 ChatFragment chatFragment = new ChatFragment();
                 return chatFragment;
             case 2:
-                SerachFragment serachFragment = new SerachFragment();
-                return  serachFragment;
+                FriendsFragment friendsFragment = new FriendsFragment();
+                return friendsFragment;
             default:
                 return null;
         }

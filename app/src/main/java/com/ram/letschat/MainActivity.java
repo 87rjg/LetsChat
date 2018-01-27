@@ -13,10 +13,13 @@ import android.widget.TableLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mUserRef;
     private Toolbar mToolbar;
     private ViewPager mViewpager;
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -51,7 +55,28 @@ public class MainActivity extends AppCompatActivity {
         {
             sendTostart();
 
+        }else{
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+            mUserRef.child("online").setValue(true);
+
         }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       /* FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser !=null)
+        mUserRef.child("online").setValue(false);*/
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser !=null)
+            mUserRef.child("online").setValue(false);
 
     }
 
@@ -77,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
          switch(item.getItemId())
          {
              case R.id.user_logout:
+
+                 FirebaseUser currentUser = mAuth.getCurrentUser();
+                 if(currentUser !=null)
+                     mUserRef.child("online").setValue(false);
                  FirebaseAuth.getInstance().signOut();
                  sendTostart();
                  return true;
@@ -93,18 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
 
          }
-         /*
-         if(item.getItemId() == R.id.user_logout)
-         {
-             FirebaseAuth.getInstance().signOut();
-             sendTostart();
-         }
-         if(item.getItemId() == R.id.setting_btn)
-         {
-             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-             startActivity(intent);
-         }
 
-        return true;*/
     }
 }
